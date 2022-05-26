@@ -13,7 +13,9 @@ const io = require('socket.io')(http, {
 const bcrypt = require('bcrypt')
 
 const { createClient } = require('redis')
+const retryStrategy = require('node-redis-retry-strategy')
 const redisClient = createClient({
+  retry_strategy: retryStrategy(),
   socket: {
     rejectUnauthorized: false
   },
