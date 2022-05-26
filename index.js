@@ -14,7 +14,11 @@ const bcrypt = require('bcrypt')
 
 const { createClient } = require('redis')
 const redisClient = createClient({
-  url: process.env.REDIS_TLS_URL
+  socket: {
+    rejectUnauthorized: false,
+    tls: true
+  },
+  url: process.env.REDIS_URL
 })
 redisClient.connect()
 
