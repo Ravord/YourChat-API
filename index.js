@@ -21,7 +21,7 @@ const redisClient = createClient({
   },
   url: process.env.REDIS_URL
 })
-redisClient.on('error', (err) => console.log('Client Error', err))
+redisClient.on('error', (err) => console.log('Client Error:', err)) // this line fixes SocketClosedUnexpectedlyError
 redisClient.connect()
 
 const port = process.env.PORT || 5000
@@ -50,7 +50,7 @@ app.get('/channels/:channel/messages', async (req, res, next) => {
 let membersOfChannels = []
 
 io.on('connection', async (socket) => {
-  const storedId = await bcrypt.hash(socket.handshake.query.storedId, 2)
+  const storedId = await bcrypt.hash(socket.handshake.query.storedId, 1)
 
   function checkIfExists(channel, { edited }) {
     if (!channel) return
