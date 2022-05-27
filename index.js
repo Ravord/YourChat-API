@@ -21,6 +21,7 @@ const redisClient = createClient({
   },
   url: process.env.REDIS_URL
 })
+redisClient.on('error', (err) => console.log('Client Error', err))
 redisClient.connect()
 
 const port = process.env.PORT || 5000
